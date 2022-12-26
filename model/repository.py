@@ -1,5 +1,6 @@
 from model.studentClass import Student 
 from model.teacherClass import Teacher
+from database.conection import *
 
 class Repository ():
 	def __init__(self):

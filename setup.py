@@ -1,6 +1,5 @@
 from controller.MainController import *
 from testing.model_main_test import *
-from database.conection import *
 
 
 # Hay muchos comentarios que nada tienen que ver con el funcionamiento de la app
