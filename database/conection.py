@@ -52,3 +52,5 @@ class Conection():
     def cursor(self):
         return self.__cursor
 
+
+conn = Conection()
