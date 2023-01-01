@@ -1,12 +1,14 @@
-import sys
-import os
 from dotenv import load_dotenv
-import psycopg2
-
+import sys, os, psycopg2
 
 
 load_dotenv()
-def conection():
+def Conection():
+    """
+        >>> con = Conection()
+        Database is Connected!
+    """
+
     try:
         conection = psycopg2.connect(
             host = os.getenv('DB_HOST'),
