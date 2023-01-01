@@ -86,9 +86,6 @@ class Repository ():
 		>>> repo.insertStudent (object_place)
 		None
 		"""
-		# if self.indexPlace(plc.place_name) != None :
-		# 	raise Exception("The place already exist in the repository")
-		# self.Places.append(plc)
 
 		try:
 			with conection.cursor() as cursor:
