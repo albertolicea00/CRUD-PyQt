@@ -75,18 +75,22 @@ class CRUD__PlacetolocationControler ():
 	def load_PlacetolocationTable (self):
 		self.__view.clean_PlacetolocationTable()
 		for plc in self.__repository.Places:
-			
-			place_in_university	= "No"
-			if plc.place_in_university:
-				place_in_university = "Yes"
 
+			place_name = plc[1]
+			place_in_university = plc[3]
+			place_description = plc[2]
+
+			print()
+			in_university = "No"
+			if place_in_university:
+				in_university = "Yes"
 
 			i = self.__view.tablePlacetolocation.rowCount()
 			self.__view.tablePlacetolocation.insertRow(i)
 			 
-			self.__view.add_PlaceTable(i, 0, plc.place_name)
-			self.__view.add_PlaceTable(i, 1, place_in_university)
-			self.__view.add_PlaceTable(i, 2, plc.place_description)
+			self.__view.add_PlaceTable(i, 0, place_name)
+			self.__view.add_PlaceTable(i, 1, in_university)
+			self.__view.add_PlaceTable(i, 2, place_description)
 
 		self.__view.tablePlacetolocation.resizeColumnsToContents()
 # ------------------------------------------------------   

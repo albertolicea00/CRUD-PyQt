@@ -59,6 +59,20 @@ class Repository ():
 		>>> repo.Places
 		[object_student1, object_place, 2object_place ...3]
 		"""
+		try:
+			with conection.cursor() as cursor:
+
+				query = "SELECT * FROM PLACETOLOCATION"
+				cursor.execute(query)
+				plcs = cursor.fetchall()
+				return plcs
+
+		except psycopg2.Error as e:
+			raise Exception("Error in database: ", e)
+		# finally:
+		# 	conection.close()
+
+
 		return self.__possible_places
 	# ----------------------------------------------------------
 	#			INSERT			INSERT			INSERT			 
