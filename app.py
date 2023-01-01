@@ -1,7 +1,6 @@
 from controller.MainController import *
 # from testing.model_main_test import *
 
-
 # Hay muchos comentarios que nada tienen que ver con el funcionamiento de la app
 #	mas bien son idean random que surguieron en su momento, para mejorar la app 	
 #					(que algunas quedaron como una utopia y otras ya que sustituyeron por algo mejor)
