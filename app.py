@@ -1,5 +1,5 @@
 from controller.MainController import *
-from testing.model_main_test import *
+# from testing.model_main_test import *
 
 
 # Hay muchos comentarios que nada tienen que ver con el funcionamiento de la app
@@ -10,9 +10,8 @@ from testing.model_main_test import *
 if __name__ == "__main__":
 	# test = Testing()
 	# test.start()
-	# app = mainControler ()
-	# app.run()
-	pass
+	app = mainControler ()
+	app.run()
 	
 # -----------------------------------------
 # 		TO DO (Extra) :

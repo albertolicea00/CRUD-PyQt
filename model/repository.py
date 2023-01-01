@@ -1,6 +1,7 @@
 from model.studentClass import Student 
 from model.teacherClass import Teacher
-from database.conection import *
+import psycopg2
+from database.conection import conection
 
 class Repository ():
 	def __init__(self):
@@ -11,10 +12,11 @@ class Repository ():
 		>>> repo = Repository()
 		None
 		"""
-		self.__possible_students = []
-		self.__possible_teachers = []
-		self.__possible_places = []
-	
+
+		self.__possible_students = [] 	# esto se borrara mas adelante
+		self.__possible_teachers = [] 	# esto se borrara mas adelante
+		self.__possible_places = [] 	# esto se borrara mas adelante
+
 	# -------------------------------
 	#		INTERNALS OPERATION 
 	# -------------------------------
@@ -84,9 +86,20 @@ class Repository ():
 		>>> repo.insertStudent (object_place)
 		None
 		"""
-		if self.indexPlace(plc.place_name) != None :
-			raise Exception("The place already exist in the repository")
-		self.Places.append(plc)
+		# if self.indexPlace(plc.place_name) != None :
+		# 	raise Exception("The place already exist in the repository")
+		# self.Places.append(plc)
+
+		try:
+			with conection.cursor() as cursor:
+				query = "INSERT INTO PLACETOLOCATION (name, description, inuniversity) VALUES('{}','{}','{}')".format(plc.place_name, plc.place_description, plc.place_in_university)
+				cursor.execute(query)
+				conection.commit()
+		except psycopg2.Error as e:
+			print("Error in database: ", e)
+		# finally:
+		# 	conection.close()
+
 	# ----------------------------------------------------------
 	#			UPDATE			UPDATE			UPDATE			
 	# ----------------------------------------------------------
