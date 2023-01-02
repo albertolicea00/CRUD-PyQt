@@ -28,6 +28,7 @@ class Repository ():
 		for i in range(len(self.Teachers)):
 			if self.Teachers[i].ID == ID:
 				return i
+
 	def indexPlace(self , place_name):
 		for i in range(len(self.Places)):
 			if self.Places[i].place_name == place_name:
@@ -95,6 +96,7 @@ class Repository ():
 			raise Exception("The teacher already exist in the repository")
 		self.Teachers.append(tch)
 
+
 	def insertPlace (self ,plc):
 		"""
 		>>> repo.insertStudent (object_place)
@@ -106,8 +108,10 @@ class Repository ():
 				query = "INSERT INTO PLACETOLOCATION (name, description, inuniversity) VALUES('{}','{}','{}')".format(plc.place_name, plc.place_description, plc.place_in_university)
 				cursor.execute(query)
 				conection.commit()
+		except psycopg2.errors.UniqueViolation:
+			raise Exception	(f"The place already exist in the repository")
 		except psycopg2.Error as e:
-			print("Error in database: ", e)
+			raise Exception(f"Error in database: {e}")
 		# finally:
 		# 	conection.close()
 
