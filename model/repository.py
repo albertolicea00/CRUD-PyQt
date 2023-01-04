@@ -33,7 +33,41 @@ class Repository ():
 		for i in range(len(self.Places)):
 			if self.Places[i].place_name == place_name:
 				return i
-	
+
+
+	@staticmethod
+	def maxIndexAddress():
+		#  retorna el id maximo en la tabla de direcciones
+
+		try:
+			with conection.cursor() as cursor:
+
+				cursor.execute("SELECT MAX(id) FROM ADDRESS")    # retorna el id maximo en la tabla de direcciones
+				addid = cursor.fetchall()[0][0] 				 # obtiene el id de la direccion agregada
+
+				return addid
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+
+	@staticmethod
+	def indexPlace(plcname):
+		#  retorna el id de un lugar de ubicacion segun el nombre pasado por parametro
+
+		try:
+			with conection.cursor() as cursor:
+
+				cursor.execute("SELECT id FROM PLACETOLOCATION WHERE name='{}'".format(plcname))
+				plcid = cursor.fetchall()[0][0]  # obtiene el id de la direccion agregada
+
+				return plcid
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+
+
+
+
+
+
 # *****************************************************************
 #							CRUD
 # *****************************************************************
@@ -78,14 +112,58 @@ class Repository ():
 	# ----------------------------------------------------------
 	#			INSERT			INSERT			INSERT			 
 	# ----------------------------------------------------------
+
+	def __insertAddress (self, address):
+		"""
+		>>> repo.__insertAddress ( addresslist )
+		id
+		"""
+		try:
+			with conection.cursor() as cursor:
+
+				query = "INSERT INTO ADDRESS (street, number, province, municipality) " \
+						"VALUES('{}','{}','{}','{}')".format(address[0], address[1],address[3], address[2])
+				cursor.execute(query)
+
+		except psycopg2.Error as e:
+			print("Error in database: ", e)
+		# finally:
+		# 	conection.close()
+
 	def insertStudent (self, std ):
 		"""
 		>>> repo.insertStudent (object_student)
 		None
 		"""
-		if self.indexStudent(std.ID) != None :
-			raise Exception("The student already exist in the repository")
-		self.Students.append(std)
+		self.__insertAddress(std.address)
+
+		addid = Repository.maxIndexAddress()								# obtiene el id de la direccion agregada
+		plcid = Repository.indexPlace(std.place_to_location.place_name)		# obtiene el id del lugar de ubicacion escogido
+
+		try:
+			with conection.cursor() as cursor:
+
+				query = "INSERT INTO STUDENT (ID, name, lastname, gender, address, placetolocation, degreeacttitude, carrer, yearofcarrer, average) " \
+							"VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}''{}')".format(std.ID,
+																							   std.fullname.name,
+																							   std.fullname.last_name,
+																							   std.gender,
+																							   addid,
+																							   plcid,
+																							   std.degree_acttitude,
+																							   std.carrer,
+																							   std.year_of_carrer,
+																							   std.average)
+
+				cursor.execute(query)
+				conection.commit()
+		except psycopg2.Error as e:
+			print("Error in database: ", e)
+		# finally:
+		# 	conection.close()
+
+
+
 			
 	def insertTeacher (self ,tch):
 		"""
@@ -96,6 +174,16 @@ class Repository ():
 			raise Exception("The teacher already exist in the repository")
 		self.Teachers.append(tch)
 
+		# try:
+		# 	with conection.cursor() as cursor:
+		# 		query = "INSERT INTO TEACHER (ID, name, lastname, gender, address, placetolocation, degreeacttitude, departament, leftcuba, teachingcategory, scientificcategory) " \
+		# 				"VALUES('{}','{}','{}','{}','{}','{}','{}','{}','{}''{}','{}')".format(tch.ID, tch.fullname.name, tch.fullname.lastname, tch.gender, 1, 1, tch.degree_acttitude, tch.departament, tch.left_cuba, tch.teaching_category, tch.scientific_category)
+		# 		cursor.execute(query)
+		# 		conection.commit()
+		# except psycopg2.Error as e:
+		# 	print("Error in database: ", e)
+		# # finally:
+		# # 	conection.close()
 
 	def insertPlace (self ,plc):
 		"""

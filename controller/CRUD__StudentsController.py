@@ -15,7 +15,7 @@ class CRUD__StudentsControler ():
 		try:
 			self.__table.Table.setCurrentIndex(0)
 			self.__view = menu_crudStudent(self)
-			self.assigPlaces() 
+			self.assigPlaces()
 			self.__validateOpen()
 			self.__view.show()
 		except Exception as e:
@@ -149,14 +149,18 @@ class CRUD__StudentsControler ():
 #			Load Places
 # ------------------------------------------------------
 	def assigPlaces (self):
+		# print(self.__repository.Places)
 		for i in range(len(self.__repository.Places)):
-			place_name = self.__repository.Places[i].place_name
-			self.__view.box_place_name.addItem(str(place_name))
+			place_id = self.__repository.Places[i][0]
+			place_name = self.__repository.Places[i][1]
+			self.__view.box_place_name.addItem(place_name)
 	
 	def loadingPlaces (self, opt):
-		index = self.__repository.indexPlace(opt)
-		self.__view.value_place_description = self.__repository.Places[index].place_description
-		self.__view.value_place_inCollege = self.__repository.Places[index].place_in_university
+		print(opt)
+		# index = self.__repository.indexPlace(opt)
+
+		# self.__view.value_place_description = self.__repository.Places[index].place_description
+		# self.__view.value_place_inCollege = self.__repository.Places[index].place_in_university
 # ------------------------------------------------------
 #			VALIDATIONS 
 # ------------------------------------------------------

@@ -80,7 +80,6 @@ class CRUD__PlacetolocationControler ():
 			place_in_university = plc[3]
 			place_description = plc[2]
 
-			print()
 			in_university = "No"
 			if place_in_university:
 				in_university = "Yes"
