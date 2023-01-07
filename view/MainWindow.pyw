@@ -45,15 +45,18 @@ class MainWindow (QMainWindow):
 #			EXIT
 # ------------------------------------------------------
 	def closeEvent(self, event):
-		reply = QMessageBox.question(self,
-			 "QUIT", "If you close the main window, all data in the repository will be cleaned\nAre you sure you wanna close the aplication ?",
-			QMessageBox.Yes | QMessageBox.No
-		)
-		if reply == QMessageBox.Yes:
-			# event.accept() 		# cierra la ventana self
-			sys.exit()				# cierra todo el programa 		(el otro metodo mas tosco es un try de cierra para cada una de las ventanas del proyecto)
-		else:
-			event.ignore()
+		# Esta funcion ya no es necesaria ya que almacena los datos en una BBDD
+		# reply = QMessageBox.question(self,
+		# 	 "QUIT", "If you close the main window, all data in the repository will be cleaned\nAre you sure you wanna close the aplication ?",
+		# 	QMessageBox.Yes | QMessageBox.No
+		# )
+		# if reply == QMessageBox.Yes:
+		# 	# event.accept() 		# cierra la ventana self
+		# 	sys.exit()				# cierratodo el programa 		(el otro metodo mas tosco es un try de cierra para cada una de las ventanas del proyecto)
+		# else:
+		# 	event.ignore()
+		pass
+
 # ------------------------------------------------------
 #			CLEAN
 # ------------------------------------------------------
