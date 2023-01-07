@@ -49,19 +49,24 @@ class Repository ():
 		except psycopg2.Error as e:
 			raise Exception(f"Error in database: {e}")
 
-	@staticmethod
-	def indexPlace(plcname):
-		#  retorna el id de un lugar de ubicacion segun el nombre pasado por parametro
+
+	def getPlace(self, plcname, att):
+		#  retorna las columnas(att) de un lugar de ubicacion segun el nombre pasado por parametro
+		# att:str => 'name, inuniversity'
 
 		try:
 			with conection.cursor() as cursor:
 
-				cursor.execute("SELECT id FROM PLACETOLOCATION WHERE name='{}'".format(plcname))
-				plcid = cursor.fetchall()[0][0]  # obtiene el id de la direccion agregada
+				cursor.execute("SELECT {} FROM PLACETOLOCATION WHERE name='{}'".format(att, plcname))
+				values = cursor.fetchall()
 
-				return plcid
+				# if len(values) == 0:
+				# 	raise()
+
+				return values
 		except psycopg2.Error as e:
 			raise Exception(f"Error in database: {e}")
+
 
 
 
@@ -107,8 +112,6 @@ class Repository ():
 		# finally:
 		# 	conection.close()
 
-
-		return self.__possible_places
 	# ----------------------------------------------------------
 	#			INSERT			INSERT			INSERT			 
 	# ----------------------------------------------------------

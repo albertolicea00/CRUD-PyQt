@@ -156,11 +156,9 @@ class CRUD__StudentsControler ():
 			self.__view.box_place_name.addItem(place_name)
 	
 	def loadingPlaces (self, opt):
-		print(opt)
-		# index = self.__repository.indexPlace(opt)
+		self.__view.value_place_description = self.__repository.getPlace(opt, "description")[0][0]
+		self.__view.value_place_inCollege = self.__repository.getPlace(opt, "inuniversity")[0][0]
 
-		# self.__view.value_place_description = self.__repository.Places[index].place_description
-		# self.__view.value_place_inCollege = self.__repository.Places[index].place_in_university
 # ------------------------------------------------------
 #			VALIDATIONS 
 # ------------------------------------------------------
