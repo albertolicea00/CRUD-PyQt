@@ -42,8 +42,9 @@ class CRUD__StudentsControler ():
 			value_yearofcarrer = self.__view.value_yearofcarrer
 			value_average = self.__view.value_average
 
-			std = Student (value_id, 
-					[value_name, value_lastname], 
+
+			std = Student (value_id,
+					[value_name, value_lastname],
 					value_gender,
 					[value_address_street, value_address_number, value_address_province, value_address_municipality],
 					[value_place_name ,	value_place_description , value_place_inCollege],
@@ -52,7 +53,7 @@ class CRUD__StudentsControler ():
 					value_average
 			)
 
-			self.__repository.insertStudent( std )
+			self.__repository.insertStudent(std)
 			self.__table.Table.setCurrentIndex(0)
 			self.load_StudentTable()
 			self.__view.cleanForm()

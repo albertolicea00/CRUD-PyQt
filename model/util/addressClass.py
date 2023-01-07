@@ -24,8 +24,8 @@ class Address ():
 		self.__validate("output")
 
 		
-	def __str__(self):
-		return "{} #{} , {} , {}".format(self.address_street ,self.address_number , self.address_municipality , self.address_province) 
+	# def __str__(self):
+	# 	return "{} #{} , {} , {}".format(self.address_street ,self.address_number , self.address_municipality , self.address_province)
 	
 	
 	@property
