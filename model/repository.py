@@ -153,8 +153,12 @@ class Repository ():
 
 				cursor.execute(query)
 				conection.commit()
+
+		# excepts de validacion por si ya existe un student y/o otros problemas a validar ....
 		except psycopg2.Error as e:
 			print("Error in database: ", e)
+			# validar si ocurre algun problema elimine el address insertado (crear un metodo para eliminar addrsss en privado)
+
 		# finally:
 		# 	conection.close()
 

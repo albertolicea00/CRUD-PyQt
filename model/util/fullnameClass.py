@@ -68,6 +68,8 @@ class Full_Name ():
 		if len(self.__last_name) < 3 or len(self.__last_name) > 13:
 			raise Exception(f"The name last must have between 3 and 13 characters, not {len(self.__last_name)} characters")
 
+
+		# esto hay que corregirlo y validar cuando me entren numeros como un nombre (la vista al ser un input lo saca como string == "123" )
 		if not self.__name.isalpha():  
 			raise Exception("Please input just one name without : spaces, numbers or any strange character")
 		if not self.__last_name.isalpha():
