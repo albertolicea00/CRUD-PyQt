@@ -1,0 +1,15 @@
+Typo de errores encontrados:
+        ! : IMPORTANT
+        X : CRITICO
+        ? : BAJO
+
+-----------------------------------------------------------------------------------
+??    : corregir en las validaciones y sustituir los print por raise
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+!!    : muchas de las validaciones no muestra la descripcion del error en visual
+-----------------------------------------------------------------------------------
+X     : En cualquier crud luego de insertar un dato unico me valida y no deja introducirlo pero
+         luego al parecer se cierra la coneccion porque aborta las nuevas insercciones
+         a no ser que se reinicie el programa
+-----------------------------------------------------------------------------------
+
