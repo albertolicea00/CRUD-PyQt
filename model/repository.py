@@ -180,7 +180,7 @@ class Repository ():
 
 				conection.commit()
 		except psycopg2.Error as e:
-			print("Error in database: ", e)
+			raise Exception("Error in database: ", e)
 		# finally:
 		# 	conection.close()
 
@@ -189,9 +189,11 @@ class Repository ():
 		>>> repo.insertStudent (object_student)
 		None
 		"""
+		# try:
 		self.__insertAddress(std.address)
+		addid = Repository.maxIndexAddress()								    			# obtiene el id de la direccion agregada
+		# except:
 
-		addid = Repository.maxIndexAddress()								    # obtiene el id de la direccion agregada
 		plcid = self.getPlace(plcname=std.place_to_location.place_name, att='id')			# obtiene el id del lugar de ubicacion escogido
 
 
@@ -204,9 +206,11 @@ class Repository ():
 				cursor.execute(query)
 				conection.commit()
 
-		# excepts de validacion por si ya existe un student y/o otros problemas a validar ....
+		# excepts de validacion a otros problemas a validar ....
+		except psycopg2.errors.UniqueViolation:
+			raise Exception(f"The student already exist in the repository")
 		except psycopg2.Error as e:
-			print("Error in database: ", e)
+			raise Exception("Error in database: ", e)
 			# validar si ocurre algun problema elimine el address insertado (crear un metodo para eliminar addrsss en privado)
 
 		# finally:
