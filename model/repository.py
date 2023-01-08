@@ -50,14 +50,42 @@ class Repository ():
 			raise Exception(f"Error in database: {e}")
 
 
-	def getPlace(self, plcname, att):
-		#  retorna las columnas(att) de un lugar de ubicacion segun el nombre pasado por parametro
+
+# *****************************************************************
+#							CRUD
+# *****************************************************************
+	# ----------------------------------------------------------
+	#			 SHOW			 SHOW			 SHOW 			
+	# ----------------------------------------------------------
+	def getPlace(self, plcid="id", plcname="name", att="*"):
+		# retorna las columnas(att) de un lugar de ubicacion segun el nombre pasado por parametro
 		# att:str => 'name, inuniversity'
 
 		try:
 			with conection.cursor() as cursor:
 
-				cursor.execute("SELECT {} FROM PLACETOLOCATION WHERE name='{}'".format(att, plcname))
+				query = "SELECT " + att + " FROM PLACETOLOCATION WHERE id=" + plcid
+				if plcname != "name":
+					query += " and name='" + plcname + "'"
+
+				cursor.execute(query)
+				values = cursor.fetchall()
+
+				# if len(values) == 0:
+				# 	raise()
+
+				return values
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+
+	def getAddress(self, addid="id", att="*"):
+		#  retorna las columnas(att) de un lugar de ubicacion segun el nombre pasado por parametro
+		# att:str => 'name, inuniversity'
+
+		try:
+			with conection.cursor() as cursor:
+				query = "SELECT " + att + " FROM ADDRESS WHERE id=" + addid
+				cursor.execute(query)
 				values = cursor.fetchall()
 
 				# if len(values) == 0:
@@ -68,24 +96,46 @@ class Repository ():
 			raise Exception(f"Error in database: {e}")
 
 
+	def getStudent(self, stdid="id", att="*"):
+		try:
+			with conection.cursor() as cursor:
+
+				query = "SELECT " + att +  " FROM STUDENT WHERE id=" + stdid
+				cursor.execute(query)
+				values = cursor.fetchall()
+				return values
+
+		except psycopg2.Error as e:
+			raise Exception("Error in database: ", e)
+		# finally:
+		# 	conection.close()
+		# return self.__possible_students
 
 
 
 
 
-# *****************************************************************
-#							CRUD
-# *****************************************************************
-	# ----------------------------------------------------------
-	#			 SHOW			 SHOW			 SHOW 			
-	# ----------------------------------------------------------
+
 	@property	
 	def Students (self):
 		"""
 		>>> repo.Students
 		[object_student1, object_student2, object_student3 ...]
 		"""
-		return self.__possible_students
+		try:
+			with conection.cursor() as cursor:
+
+				query = "SELECT * FROM STUDENT"
+				cursor.execute(query)
+				std = cursor.fetchall()
+				return std
+
+		except psycopg2.Error as e:
+			raise Exception("Error in database: ", e)
+		# finally:
+		# 	conection.close()
+		# return self.__possible_students
+
 	@property
 	def Teachers (self):
 		"""
@@ -142,7 +192,7 @@ class Repository ():
 		self.__insertAddress(std.address)
 
 		addid = Repository.maxIndexAddress()								    # obtiene el id de la direccion agregada
-		plcid = self.getPlace(std.place_to_location.place_name, 'id')		# obtiene el id del lugar de ubicacion escogido
+		plcid = self.getPlace(plcname=std.place_to_location.place_name, att='id')			# obtiene el id del lugar de ubicacion escogido
 
 
 		try:

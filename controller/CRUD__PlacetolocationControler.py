@@ -74,7 +74,7 @@ class CRUD__PlacetolocationControler ():
 # ------------------------------------------------------
 	def load_PlacetolocationTable (self):
 		self.__view.clean_PlacetolocationTable()
-		for q in self.__repository.Places:
+		for q in self.__repository.getPlace():
 
 			plc = Place_to_location([q[1], q[2], q[3]])
 

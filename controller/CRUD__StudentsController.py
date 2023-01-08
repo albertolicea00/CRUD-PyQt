@@ -119,8 +119,12 @@ class CRUD__StudentsControler ():
 # ------------------------------------------------------
 	def load_StudentTable (self):
 		self.__table.clean_StudentTable()
-		for std in self.__repository.Students:
-			
+		for q in self.__repository.getStudent():
+
+			address = self.__repository.getAddress(addid=str(q[4]), att='street, number, province, municipality')[0]
+			place = self.__repository.getPlace(plcid=str(q[5]), att='name, description, inuniversity')[0]
+			std = Student(q[0], [q[1], q[2]], q[3], list(address), list(place), q[7], q[8], q[9])
+
 			place_in_university = "No"
 			if std.place_to_location.place_in_university:
 				place_in_university = "Yes"
@@ -150,16 +154,14 @@ class CRUD__StudentsControler ():
 #			Load Places
 # ------------------------------------------------------
 	def assigPlaces (self):
-		# print(self.__repository.Places)
-		for i in range(len(self.__repository.Places)):
+		for i in range(len(self.__repository.getPlace())):
 			place_id = self.__repository.Places[i][0]
 			place_name = self.__repository.Places[i][1]
 			self.__view.box_place_name.addItem(place_name)
 	
 	def loadingPlaces (self, opt):
-		self.__view.value_place_description = self.__repository.getPlace(opt, "description")[0][0]
-		self.__view.value_place_inCollege = self.__repository.getPlace(opt, "inuniversity")[0][0]
-
+		self.__view.value_place_description = self.__repository.getPlace(plcname=opt, att="description")[0][0]
+		self.__view.value_place_inCollege = self.__repository.getPlace(plcname=opt, att="inuniversity")[0][0]
 # ------------------------------------------------------
 #			VALIDATIONS 
 # ------------------------------------------------------

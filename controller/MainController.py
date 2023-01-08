@@ -11,7 +11,7 @@ from controller.Help__updateController	import *
 
 from controller.Search__show_teachers_per_teaching_categoryController import * 
 from controller.Search__average_teachers_per_province_and_departamentController	import * 
-from controller.Search__show_older_teacher_addressController	import * 
+from controller.Search__show_older_teacher_addressController import *
 from controller.Search__count_students_per_province_and_yearController	import * 
 
 from model.repository import Repository
@@ -32,6 +32,10 @@ class mainControler ():
 		self.__app = QApplication(sys.argv)
 		self.__mainview = MainWindow(self)
 		self.__mainview.show()
+
+		CRUD__StudentsControler(self.__mainview, self.__repository).load_StudentTable()
+		# CRUD__TeachersControler(self.__mainview, self.__repository).load_TeacherTable()
+
 		self.__app.exec()
 
 # ******************************************************
@@ -126,8 +130,6 @@ class mainControler ():
 			self.__view_tch.view.value_place_description = value_place_description
 			self.__view_tch.view.value_place_inWork = value_place_inWork
 			self.__view_tch.view.value_leftCuba = value_leftCuba
-			
-
 
 # ******************************************************
 #		Search menu
@@ -164,10 +166,6 @@ class mainControler ():
 	def Help__update(self):
 		view = Help__updateControler()
 		view.run()
-
-
-
-
 
 # ******************************************************
 #		IN PROGRESS
