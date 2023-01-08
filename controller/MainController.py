@@ -57,7 +57,10 @@ class mainControler ():
 	#		Loading tables to CRUDs
 	# -------------------------------------
 	def load_StudentForm (self):
-		if self.__view_std.view.isVisible() == False:
+		try:
+			if self.__view_std.view.isVisible() == False:
+				self.CRUD__Students()
+		except:
 			self.CRUD__Students()
 		index = self.__mainview.table_Student.currentRow()
 		if index != -1:
@@ -65,7 +68,7 @@ class mainControler ():
 			value_name = self.__mainview.table_Student.item(index, 2).text()
 			value_lastname = self.__mainview.table_Student.item(index, 3).text()
 			value_gender = self.__mainview.table_Student.item(index, 4).text()
-			# value_leftCuba = self.__mainview.table_Student.item(ind, )			No disponible 
+			# value_leftCuba = self.__mainview.table_Student.item(ind, )			No disponible
 			value_carrer = self.__mainview.table_Student.item(index, 6).text()
 			value_yearofcarrer = self.__mainview.table_Student.item(index, 7).text()
 			value_average = self.__mainview.table_Student.item(index, 8).text()
@@ -76,7 +79,7 @@ class mainControler ():
 			value_place_name = self.__mainview.table_Student.item(index, 13).text()
 			value_place_description = self.__mainview.table_Student.item(index, 14).text()
 			value_place_inCollege = self.__mainview.table_Student.item(index, 15).text()
-		
+
 			self.__view_std.view.value_id = value_id
 			self.__view_std.view.value_name = value_name
 			self.__view_std.view.value_lastname = value_lastname
