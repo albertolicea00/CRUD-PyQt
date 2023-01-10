@@ -212,9 +212,9 @@ class Repository ():
 		except psycopg2.Error as e:
 			raise Exception("Error in database: ", e)
 			# validar si ocurre algun problema elimine el address insertado (crear un metodo para eliminar addrsss en privado)
-
-		# finally:
-		# 	conection.close()
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
 
 
 
@@ -254,8 +254,9 @@ class Repository ():
 			raise Exception	(f"The place already exist in the repository")
 		except psycopg2.Error as e:
 			raise Exception(f"Error in database: {e}")
-		# finally:
-		# 	conection.close()
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
 
 	# ----------------------------------------------------------
 	#			UPDATE			UPDATE			UPDATE			
