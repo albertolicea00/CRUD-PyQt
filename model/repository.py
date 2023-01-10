@@ -100,13 +100,13 @@ class Repository ():
 		try:
 			with conection.cursor() as cursor:
 
-				query = "SELECT " + att +  " FROM STUDENT WHERE id=" + stdid
+				query = "SELECT " + att + " FROM STUDENT WHERE id=" + stdid
 				cursor.execute(query)
 				values = cursor.fetchall()
 				return values
 
 		except psycopg2.Error as e:
-			raise Exception("Error in database: ", e)
+			raise Exception(f"Error in database: {e}")
 		# finally:
 		# 	conection.close()
 		# return self.__possible_students
@@ -158,7 +158,7 @@ class Repository ():
 				return plcs
 
 		except psycopg2.Error as e:
-			raise Exception("Error in database: ", e)
+			raise Exception(f"Error in database: {e}")
 		# finally:
 		# 	conection.close()
 
@@ -180,9 +180,10 @@ class Repository ():
 
 				conection.commit()
 		except psycopg2.Error as e:
-			raise Exception("Error in database: ", e)
-		# finally:
-		# 	conection.close()
+			raise Exception(f"Error in database: {e}")
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
 
 	def insertStudent (self, std):
 		"""
@@ -190,18 +191,20 @@ class Repository ():
 		None
 		"""
 		# try:
+		# obtiene el id de la direccion agregada
 		self.__insertAddress(std.address)
-		addid = Repository.maxIndexAddress()								    			# obtiene el id de la direccion agregada
+		addid = Repository.maxIndexAddress()
 		# except:
 
-		plcid = self.getPlace(plcname=std.place_to_location.place_name, att='id')			# obtiene el id del lugar de ubicacion escogido
+		# obtiene el id del lugar de ubicacion escogido
+		plcid = self.getPlace(plcname=std.place_to_location.place_name, att='id')[0][0]
 
 
 		try:
 			with conection.cursor() as cursor:
 
 				query = "INSERT INTO STUDENT VALUES('{}','{}','{}','{}','{}','{}', {},'{}','{}', {})".format( std.ID,
-					std.fullname.name, std.fullname.last_name, std.gender, addid, plcid[0][0], std.degree_acttitude, std.carrer, std.year_of_carrer, std.average )
+					std.fullname.name, std.fullname.last_name, std.gender, addid, plcid, std.degree_acttitude, std.carrer, std.year_of_carrer, std.average )
 
 				cursor.execute(query)
 				conection.commit()
@@ -210,7 +213,7 @@ class Repository ():
 		except psycopg2.errors.UniqueViolation:
 			raise Exception(f"The student already exist in the repository")
 		except psycopg2.Error as e:
-			raise Exception("Error in database: ", e)
+			raise Exception(f"Error in database: {e}")
 			# validar si ocurre algun problema elimine el address insertado (crear un metodo para eliminar addrsss en privado)
 		finally:
 			with conection.cursor() as cursor:
@@ -260,20 +263,52 @@ class Repository ():
 
 	# ----------------------------------------------------------
 	#			UPDATE			UPDATE			UPDATE			
-	# ----------------------------------------------------------
 	def updateStudent (self, old_std_ID , new_std ):
 		"""
 		>>> repo.updateStudent (object_place.id , object_place)
 		None
 		"""
-		old_index = self.indexStudent(old_std_ID)
-		new_index = self.indexStudent(new_std.ID)
 
-		if old_index == None:
-			raise Exception("The student do not exist in the repository")
-		if new_index != None and new_index != old_index:
-			raise Exception("The teacher already exist in the repository")
-		self.Students[old_index] = new_std
+		# actualiza la direccion
+		oldstdid= "'" + old_std_ID + "'"
+		oldidadd = self.getStudent(stdid=oldstdid, att="address")[0][0]
+		self.__updateAddress(oldidadd, new_std.address)
+
+		# obtiene el id del lugar de ubicacion escogido
+		plcid = self.getPlace(plcname=new_std.place_to_location.place_name, att='id')[0][0]
+
+		try:
+			with conection.cursor() as cursor:
+				query = "UPDATE STUDENT SET id = '{}', name = '{}', lastname = '{}', gender = '{}', placetolocation = {}, degreeacttitude = {}, carrer = '{}', yearofcarrer = {}, average = {}" \
+						"WHERE id = '{}'".format(new_std.ID, new_std.fullname.name, new_std.fullname.last_name, new_std.gender, plcid, new_std.degree_acttitude, new_std.carrer, new_std.year_of_carrer, new_std.average, old_std_ID)
+
+				cursor.execute(query)
+				conection.commit()
+
+		except psycopg2.errors.UniqueViolation:
+			raise Exception	(f"The student already exist in the repository")
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
+	# ----------------------------------------------------------
+
+
+	def __updateAddress (self, oldid, newadd):
+		try:
+			with conection.cursor() as cursor:
+
+				query = "UPDATE ADDRESS SET street='{}', number='{}', province='{}', municipality='{}' WHERE id={}".format(newadd.address_street, newadd.address_number, newadd.address_province, newadd.address_municipality, oldid)
+				cursor.execute(query)
+
+				conection.commit()
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
+
 
 	def updateTeacher (self, old_tch_ID , new_tch ):
 		"""
