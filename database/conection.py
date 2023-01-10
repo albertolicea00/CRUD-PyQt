@@ -15,4 +15,4 @@ try:
     print('Database is Connected!')
 
 except psycopg2.Error as e:
-    print("Error while connecting to database: ", e)
+    raise Exception(f"Error while connecting to database: {e}")
