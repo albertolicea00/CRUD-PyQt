@@ -169,7 +169,7 @@ class CRUD__TeachersControler():
 
     def loadingPlaces(self, opt):
         self.__view.value_place_description = self.__repository.getPlace( plcname=opt, att="description" )[0][0]
-        self.__view.value_place_inCollege = self.__repository.getPlace( plcname=opt, att="inuniversity" )[0][0]
+        self.__view.value_place_inWork = self.__repository.getPlace( plcname=opt, att="inuniversity" )[0][0]    # revisar si esto funciona (es el nombre del ui(qtdesigner))
 
     # ------------------------------------------------------
     #			VALIDATIONS
