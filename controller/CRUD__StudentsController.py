@@ -108,8 +108,8 @@ class CRUD__StudentsControler():
             if index == -1:
                 raise Exception( "Must be select a file to update" )
             std_ID = self.__table.table_Student.item( index, 0 ).text()
-
-            self.__repository.removeStudent( std_ID )
+            self.__repository.removeStudent(std_ID)
+            print('to esta rico')
             self.__table.Table.setCurrentIndex( 0 )
             self.load_StudentTable()
             self.__view.cleanForm()

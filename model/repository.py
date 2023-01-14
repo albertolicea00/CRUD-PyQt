@@ -391,15 +391,44 @@ class Repository ():
     # ----------------------------------------------------------
     #			DELETE			DELETE			DELETE
     # ----------------------------------------------------------
+    def __removeAddress (self, add_ID):
+        try:
+            with conection.cursor() as cursor:
+                cursor.execute("DELETE FROM ADDRESS WHERE id = {}".format(add_ID))
+                conection.commit()
+
+        except psycopg2.Error as e:
+            raise Exception(f"Error in database: {e}")
+        finally:
+            with conection.cursor() as cursor:
+                cursor.execute("rollback")
+
+
+
+
     def removeStudent (self, std_ID):		#quisas aqui le pase solo el CI(ID)
-        """
-        >>> repo.removeStudent (object_place)
-        None
-        """
-        index = self.indexStudent(std_ID)
-        if index == None:
-            raise Exception("The student do not exist in the repository")
-        self.Students.remove(self.Students[index])
+
+        std_ID = "'" + std_ID + "'"
+        add_ID = self.getStudent(stdid=std_ID, att="address")[0][0]
+
+        try:
+            with conection.cursor() as cursor:
+
+                query = "DELETE FROM STUDENT WHERE id = {}".format(std_ID)
+                cursor.execute(query)
+                conection.commit()
+
+        except psycopg2.Error as e:
+            raise Exception(f"Error in database: {e}")
+        finally:
+            with conection.cursor() as cursor:
+                cursor.execute("rollback")
+
+        # elimina la direccion asociada a este estudiante => funciona como un 2 factor de verificacion ya que la direccion elimina en cascada
+        # (en la vida real el que elimina en casacada deberia ser el estudiante) pero por problemas de compatibilidad entre la bbdd y el proyecto viejo no se pudo (se complicaria demaciado empezar a cambiar cosas a esta altura)
+        self.__removeAddress(add_ID)
+
+
 
     def removeTeacher (self, tch_ID):
         """
