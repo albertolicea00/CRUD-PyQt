@@ -96,7 +96,10 @@ class mainControler ():
 			self.__view_std.view.value_place_inCollege = value_place_inCollege
 
 	def load_TeacherForm (self):
-		if self.__view_tch.view.isVisible() == False:
+		try:
+			if self.__view_tch.view.isVisible() == False:
+				self.CRUD__Teachers()
+		except:
 			self.CRUD__Teachers()
 		index = self.__mainview.table_Teacher.currentRow()
 		if index != -1:
