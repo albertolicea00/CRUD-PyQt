@@ -381,7 +381,7 @@ class Repository ():
                 conection.commit()
 
         except psycopg2.errors.UniqueViolation:
-            raise Exception(f"The student already exist in the repository")
+            raise Exception(f"The place already exist in the repository")
         except psycopg2.Error as e:
             raise Exception(f"Error in database: {e}")
         finally:
