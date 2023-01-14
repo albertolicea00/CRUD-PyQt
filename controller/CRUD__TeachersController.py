@@ -3,6 +3,7 @@ from view.CRUD__Teachers import menu_crudTeacher
 from model.teacherClass import Teacher
 
 
+
 class CRUD__TeachersControler():
     def __init__(self, tableTeacher, repository):
         self.__table = tableTeacher

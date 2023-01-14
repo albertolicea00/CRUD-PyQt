@@ -3,6 +3,7 @@ from model.teacherClass import Teacher
 import psycopg2
 from database.conection import conection
 
+
 class Repository ():
     def __init__(self):
         """
