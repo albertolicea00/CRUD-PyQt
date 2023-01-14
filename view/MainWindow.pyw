@@ -52,10 +52,10 @@ class MainWindow (QMainWindow):
 		# )
 		# if reply == QMessageBox.Yes:
 		# 	# event.accept() 		# cierra la ventana self
-		# 	sys.exit()				# cierratodo el programa 		(el otro metodo mas tosco es un try de cierra para cada una de las ventanas del proyecto)
+			sys.exit()				# cierratodo el programa 		(el otro metodo mas tosco es un try de cierra para cada una de las ventanas del proyecto)
 		# else:
 		# 	event.ignore()
-		pass
+		# pass
 
 # ------------------------------------------------------
 #			CLEAN
