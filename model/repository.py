@@ -372,22 +372,21 @@ class Repository ():
         None
         """
 
-        oldplcid = "'" + old_plc_id + "'"
-        oldidadd = self.getPlace(plcid=oldplcid, att="id")
-        
-
         try:
             with conection.cursor() as cursor:
-                query = "UPDATE PLACETOLOCATION SET name = '{}', description = '{}', inuniversity = {}" \
-                        "WHERE name = '{}'".format(new_plc.place_name, new_plc.place_description, new_plc.place_in_university)
+                query = "UPDATE PLACETOLOCATION SET name = '{}', description = '{}', inuniversity = {} " \
+                        "WHERE name = '{}'".format(new_plc.place_name, new_plc.place_description, new_plc.place_in_university, old_plc_id)
+
+                cursor.execute(query)
+                conection.commit()
 
         except psycopg2.errors.UniqueViolation:
-            raise Exception( f"The student already exist in the repository" )
+            raise Exception(f"The student already exist in the repository")
         except psycopg2.Error as e:
-            raise Exception( f"Error in database: {e}" )
+            raise Exception(f"Error in database: {e}")
         finally:
             with conection.cursor() as cursor:
-                cursor.execute( "rollback" )
+                cursor.execute("rollback")
 
     # ----------------------------------------------------------
     #			DELETE			DELETE			DELETE
