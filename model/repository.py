@@ -329,7 +329,7 @@ class Repository ():
 		>>> repo.updatePlace (object_place.name , object_place)
 		None
 		"""
-		# revisa esto
+		# revisa esto y teacher
 
 		old_index = self.indexPlace(old_plc_name)
 		new_index = self.indexPlace(new_plc.place_name)
