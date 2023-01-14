@@ -8,6 +8,4 @@ Typo de errores encontrados:
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 !!    : muchas de las validaciones no muestra la descripcion del error en visual
 -----------------------------------------------------------------------------------
-X     : reparar cuando se actualice un student y falle no halla actualizado la direccion (si falla que la restablesca)
------------------------------------------------------------------------------------
 !     : testear cuando se introdusca un estudiante y falle no halla insertado ya la direccion (si falla que la borre)
