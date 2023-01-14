@@ -416,7 +416,16 @@ class Repository ():
         >>> repo.removePlace (object_place)
         None
         """
-        index = self.indexPlace(plc_name)
-        if index == None:
-            raise Exception("The place do not exist in the repository")
-        self.Places.remove(self.Places[index])
+        try:
+            with conection.cursor() as cursor:
+                query = "DELETE FROM PLACETOLOCATION WHERE name = '{}'".format(plc_name)
+
+                cursor.execute(query)
+                conection.commit()
+        except psycopg2.errors.ForeignKeyViolation as e:
+            raise Exception(f"You can't remove this places becouse is assigned in a PERSON \nto continueremove the place: update it from student/teacher CRUD")
+        except psycopg2.Error as e:
+            raise Exception(f"Error in database: {e}")
+        finally:
+            with conection.cursor() as cursor:
+                cursor.execute("rollback")
