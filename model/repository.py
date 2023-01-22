@@ -348,15 +348,17 @@ class Repository ():
         #actualiza la direccion
         oldtchid = "'" + old_tch_ID + "'"
         oldidadd = self.getTeacher(tchid=oldtchid, att="address")[0][0]
-        self.__updateAddress((oldidadd, new_tch.address))
+        self.__updateAddress(oldidadd, new_tch.address)
 
         #obtiene el id del lugar de ubicacion escogido
         plcid = self.getPlace(plcname=new_tch.place_to_location.place_name, att='id')[0][0]
 
         try:
             with conection.cursor() as cursor:
-                query = "UPDATE TEACHER SET id = '{}', name = '{}', lastname = '{}', gender = '{}', degreeacttitude = '{}', departament = '{}', teachingcategory = '{}', scientificcategory = {}" \
-                        "WHERE id = '{}'".format(new_tch.ID, new_tch.fullname.name, new_tch.fullname.last_name, new_tch.gender, plcid, new_tch.degree_acttitude, new_tch.departament, new_tch.teaching_category, new_tch.scientific_category)
+                query = "UPDATE TEACHER SET id = '{}', name = '{}', lastname = '{}', gender = '{}', placetolocation = {}, degreeacttitude = {}, departament = '{}', teachingcategory = '{}', scientificcategory = '{}' " \
+                        "WHERE id = '{}'".format(new_tch.ID, new_tch.fullname.name, new_tch.fullname.last_name, new_tch.gender, plcid, new_tch.degree_acttitude, new_tch.departament, new_tch.teaching_category, new_tch.scientific_category, old_tch_ID)
+                cursor.execute(query)
+                conection.commit()
 
         except psycopg2.errors.UniqueViolation:
             raise Exception( f"The student already exist in the repository" )
@@ -425,7 +427,8 @@ class Repository ():
                 cursor.execute("rollback")
 
         # elimina la direccion asociada a este estudiante => funciona como un 2 factor de verificacion ya que la direccion elimina en cascada
-        # (en la vida real el que elimina en casacada deberia ser el estudiante) pero por problemas de compatibilidad entre la bbdd y el proyecto viejo no se pudo (se complicaria demaciado empezar a cambiar cosas a esta altura)
+        # (en la vida real el que elimina en casacada deberia ser el estudiante) pero por problemas de compatibilidad entre la bbdd y el proyecto
+        # viejo no se pudo (se complicaria demaciado empezar a cambiar cosas a esta altura)
         self.__removeAddress(add_ID)
 
 
@@ -435,10 +438,24 @@ class Repository ():
         >>> repo.removeTeacher (object_place)
         None
         """
-        index = self.indexTeacher(tch_ID)
-        if index == None:
-            raise Exception("The teacher do not exist in the repository")
-        self.Teachers.remove(self.Teachers[index])
+        tch_ID = "'" + tch_ID + "'"
+        add_ID = self.getTeacher( tchid=tch_ID, att="address" )[0][0]
+
+        try:
+            with conection.cursor() as cursor:
+
+                query = "DELETE FROM TEACHER WHERE id = {}".format( tch_ID )
+                cursor.execute( query )
+                conection.commit()
+
+        except psycopg2.Error as e:
+            raise Exception( f"Error in database: {e}" )
+        finally:
+            with conection.cursor() as cursor:
+                cursor.execute( "rollback" )
+
+        self.__removeAddress( add_ID )
+
 
     def removePlace (self, plc_name):
         """

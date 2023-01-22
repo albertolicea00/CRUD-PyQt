@@ -34,7 +34,7 @@ class mainControler ():
 		self.__mainview.show()
 
 		CRUD__StudentsControler(self.__mainview, self.__repository).load_StudentTable()
-		# CRUD__TeachersControler(self.__mainview, self.__repository).load_TeacherTable()
+		CRUD__TeachersControler(self.__mainview, self.__repository).load_TeacherTable()
 
 		self.__app.exec()
 

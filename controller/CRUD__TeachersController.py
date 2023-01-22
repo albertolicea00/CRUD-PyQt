@@ -101,6 +101,8 @@ class CRUD__TeachersControler():
                                value_scientificCategory )
 
             self.__repository.updateTeacher( old_tch_ID, new_tch )
+
+
             self.__table.Table.setCurrentIndex( 1 )
             self.load_TeacherTable()
             self.__view.cleanForm()
@@ -115,7 +117,7 @@ class CRUD__TeachersControler():
             tch_ID = self.__table.table_Teacher.item( index, 0 ).text()
 
             self.__repository.removeTeacher( tch_ID )
-            self.__table.Table.setCurrentIndex( 1 )
+            self.__table.Table.setCurrentIndex( 0 )
             self.load_TeacherTable()
             self.__view.cleanForm()
 
@@ -127,7 +129,11 @@ class CRUD__TeachersControler():
     # ------------------------------------------------------
     def load_TeacherTable(self):
         self.__table.clean_TeacherTable()
-        for tch in self.__repository.Teachers:
+        for q in self.__repository.getTeacher():
+
+            address = self.__repository.getAddress( addid=str( q[4] ), att='street, number, province, municipality' )[0]
+            place = self.__repository.getPlace( plcid=str( q[5] ), att='name, description, inuniversity' )[0]
+            tch = Teacher( q[0], [q[1], q[2]], q[3], list(address), list(place), q[7], q[8], q[9], q[10])
 
             left_cuba = "No"
             place_in_university = "No"
