@@ -38,8 +38,8 @@ class Search__average_teachers_per_province_and_departamentController ():
 		if self.__view.box_province.count() != 0:
 			self.__view.box_province.clear()
 
-		for i in range(len(self.__repository.Teachers)):
-			province_tch = self.__repository.Teachers[i].address.address_province
+		for i in self.__repository.getTeacher(att="address"):
+			province_tch = self.__repository.getAddress(addid=str(i[0]), att="province")[0][0]
 			province_box = []
 			for j in range(self.__view.box_province.count() + 1):
 				province_box.append(self.__view.box_province.itemText(j))
@@ -52,11 +52,11 @@ class Search__average_teachers_per_province_and_departamentController ():
 		if self.__view.box_departament.count() != 0:
 			self.__view.box_departament.clear()
 
-		for i in range(len(self.__repository.Teachers)):
-			province = self.__repository.Teachers[i].address.address_province
-			
+		for i in self.__repository.getTeacher(att="address, departament"):
+			province = self.__repository.getAddress(addid=str(i[0]), att="province")[0][0]
+
 			if province == opt:
-				departament_tch = self.__repository.Teachers[i].departament
+				departament_tch = i[1]
 				departament_box = []
 				
 				for j in range(self.__view.box_departament.count() + 1):
