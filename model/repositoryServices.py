@@ -24,7 +24,6 @@ class RepositoryService ():
 		repoService.average_teachers_per_province_departament ()
 		float : return the average of teachers who have a given a departament and a province 
 		"""
-
 		age_stack = LinkedStack()
 		age_counter = 0
 		num_counter = 0
@@ -59,7 +58,6 @@ class RepositoryService ():
 		except ZeroDivisionError:
 			return 0.0
 
-
 	def count_students_per_province_year (self ,year, province):
 		"""
 		Operation # D
@@ -67,12 +65,22 @@ class RepositoryService ():
 		>>> repoService.average_teachers_per_province_departament (object_student.year_of_carrer , object_student.address.address_province)
 		int : return the number of students who have a given province and a year of carrer 
 		"""
-		students = 0 
-		for i in range(len(self.__repository.Students)):
-			std = self.__repository.Students[i]
-			if std.year_of_carrer == int(year) and std.address.address_province == province:
-				students+=1
-		return students
+		try:
+			with conection.cursor() as cursor:
+
+				query = "SELECT COUNT(STUDENT.id), STUDENT.yearofcarrer, ADDRESS.province FROM STUDENT, ADDRESS WHERE STUDENT.address = ADDRESS.id " \
+						"AND STUDENT.yearofcarrer={} AND ADDRESS.province='{}' GROUP BY STUDENT.yearofcarrer, ADDRESS.province".format(year, province)
+
+				cursor.execute(query)
+				students = cursor.fetchall()[0][0]  	# obtiene el count de la consulta
+
+				return students
+
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
 
 	def show_older_teacher_address (self, municipality):
 		"""
