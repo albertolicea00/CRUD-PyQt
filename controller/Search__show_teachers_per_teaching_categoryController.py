@@ -20,6 +20,7 @@ class Search__show_teachers_per_teaching_categoryController():
             teaching_category = self.__view.value_teaching_category
             found = self.__repositoryService.show_teachers_per_teaching_category(teaching_category)
             msg = None
+
             if teaching_category != "":
                 if len(found) == 0:
                     msg = f"We dont have any {teaching_category} teacher who have left abroad in the repository"
@@ -32,7 +33,7 @@ class Search__show_teachers_per_teaching_categoryController():
 
             for i in range(len(found)):
                 tch = found[i]
-                tch_msg = f"   - {tch.ID}, {tch.fullname.name} {tch.fullname.last_name}\n"
+                tch_msg = f"   - {tch[0]}, {tch[1]} {tch[2]}\n"
                 msg += tch_msg
 
             self.__view.showResult(msg)

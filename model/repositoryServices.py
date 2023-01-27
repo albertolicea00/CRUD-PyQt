@@ -1,7 +1,9 @@
 import psycopg2
 from database.conection import conection
 from model.util.structures.linked_stack import LinkedStack
+from model.util.sort.bubble_sort import bubble_sort
 from model.util.birthdayClass import Birthday
+import numpy as np
 
 class RepositoryService ():
 	def __init__(self, repo):
@@ -132,8 +134,34 @@ class RepositoryService ():
 		[ ] : return a list with all teachers who have that teaching_category in the repository sorted by teachers age
 		"""
 		teachers = []
-		for i in range(len(self.__repository.Teachers)):
-			tch = self.__repository.Teachers[i]
-			if tch.teaching_category == teaching_category and tch.left_cuba:
-				teachers.append(tch)
-		return sorted(teachers, key=lambda tch: tch.birthday)
+		ages = []
+
+		try:
+			with conection.cursor() as cursor:
+
+				query = "SELECT TEACHER.id, TEACHER.name, TEACHER.lastname FROM TEACHER, ADDRESS WHERE TEACHER.address = ADDRESS.id " \
+						"AND TEACHER.teachingcategory='{}' AND TEACHER.leftcuba='false'".format(teaching_category)
+				cursor.execute(query)
+				tch = cursor.fetchall()
+
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
+
+		# separando una lista de edades y otra con los profesores
+		for i in range(len(tch)):
+			bth = Birthday(tch[i][0])
+			ages += [bth.age]
+			teachers += [tch[i]]
+
+		# convirtiendo las listas a arrays de numpy
+		teachers = np.array(teachers)
+		ages = np.array(ages)
+
+		# ordena y retorna un modelo de indices del array de edades
+		inds = np.argsort(a=ages, kind='quicksort')	 	# parametro-kind:{'quicksort'', 'mergesort', 'heapsort', 'stable', ...}
+		sorted_tch = teachers[inds]	 # segun el orden de edades se ordena el array de profesores
+
+		return sorted_tch
