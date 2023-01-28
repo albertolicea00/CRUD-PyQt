@@ -1,7 +1,6 @@
 import psycopg2
 from database.conection import conection
 from model.util.structures.linked_stack import LinkedStack
-from model.util.structures.single_linked_list import LinkedList
 from model.util.birthdayClass import Birthday
 import numpy as np
 
