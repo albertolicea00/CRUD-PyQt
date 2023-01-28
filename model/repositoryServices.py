@@ -1,7 +1,7 @@
 import psycopg2
 from database.conection import conection
 from model.util.structures.linked_stack import LinkedStack
-from model.util.sort.bubble_sort import bubble_sort
+from model.util.structures.single_linked_list import LinkedList
 from model.util.birthdayClass import Birthday
 import numpy as np
 
@@ -88,43 +88,46 @@ class RepositoryService ():
 		"""
 		Operation # E
 
-		>>> repoService.show_older_teacher_address (object_student.address.address_municipality)
+		>>> repoService.show_older_teacher_address (object_teacher.address.address_municipality)
 		[ ] : return a list with the older teacher, in case two or more people exist with the same age, return all of they 
 		"""
-		teachers = []			# aqui irira una lista enlazada pa meter a cojones
-		for i in range(len(self.__repository.Teachers)):
-			tch = self.__repository.Teachers[i]
-			if tch.address.address_municipality == municipality:
-				teachers.append(tch)
-		if len(teachers) != 0:
-			older = [teachers[0]]
-			for i in range(len(teachers)):
-				tch = teachers[i]
-				for j in range(len(older)):
-					if tch.birthday.year < older[0].birthday.year :
-						if len(older) == 1:
-							older[0] = tch
-						else:
-							older = [tch]
-					elif tch.birthday.year == older[0].birthday.year :
-						if tch.birthday.month < older[0].birthday.month :
-							if len(older) == 1:
-								older[0] = tch
-							else:
-								older = [tch]
-						elif tch.birthday.month == older[0].birthday.month :
-							if tch.birthday.day < older[0].birthday.day :
-								if len(older) == 1:
-									older[0] = tch
-								else:
-									older = [tch]
-							elif tch.birthday.day == older[0].birthday.day and tch not in older:
-								older.append(tch)
-		else:
-			older = []
+		teachers = LinkedStack()
+		bigger_tch = LinkedStack()
+		try:
+			with conection.cursor() as cursor:
 
-		return older
-		
+				query = "SELECT TEACHER.id, TEACHER.name, TEACHER.lastname, ADDRESS.street, ADDRESS.number, ADDRESS.province, ADDRESS.municipality " \
+						"FROM TEACHER, ADDRESS WHERE TEACHER.address = ADDRESS.id " \
+						"AND ADDRESS.municipality='{}'".format(municipality)
+
+				cursor.execute(query)
+				tch = cursor.fetchall()
+
+		except psycopg2.Error as e:
+			raise Exception(f"Error in database: {e}")
+		finally:
+			with conection.cursor() as cursor:
+				cursor.execute("rollback")
+
+
+		bigger = 99991231				# fecha de comparacion =  9999-12-31
+		for i in range(len(tch)):		# recorriendo la consulta
+			bth = Birthday(tch[i][0])
+
+			datebth = int(str(bth.date_birthday.year) + str(bth.date_birthday.month) + str(bth.date_birthday.day))
+			teachers.push([datebth, list(tch[i]) + [bth.age]])		# añdiendo los profesores a una pila
+
+			# calculando el/los profesores mas viejos
+			if datebth < bigger:
+				bigger = datebth
+
+		while teachers.is_empty() == False:
+			tch = teachers.pop()
+
+			if tch[0] == bigger:		# almacenando para retornar en otra pila solo los profesores que sean mas viejos (si has mas de uno los retorna todos)
+				bigger_tch.push(tch[1])
+
+		return bigger_tch
 
 	def show_teachers_per_teaching_category (self, teaching_category):
 		"""

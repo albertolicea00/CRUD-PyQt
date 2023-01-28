@@ -21,16 +21,16 @@ class Search__show_older_teacher_addressController ():
 			if municipality != "":
 				found = self.__repositoryService.show_older_teacher_address(municipality)
 
-				if len(found)==1:
+				if len(found) == 1:
 					msg = f"This is the older teacher in the repository\n"
-				elif len(found)>1:
+				elif len(found) > 1:
 					msg = f"They are the olders teachers in the repository\n"
 			else:
 				raise Exception("Please insert a teacher before make this Operation")
 
-			for i in range(len(found)):
-				tch = found[i]
-				tch_msg = f"   - {tch.age} years old : {tch.ID}, {tch.fullname.name} {tch.fullname.last_name}:\n                  address: {tch.address.address_street}, {tch.address.address_number}, {tch.address.address_municipality} - {tch.address.address_province}\n"
+			while not found.is_empty():
+				tch = found.pop()
+				tch_msg = f"\n   - {tch[7]} years old : {tch[0]}, {tch[1]} {tch[2]}:\n                  address: {tch[3]}, {tch[4]}, {tch[5]} - {tch[6]}\n"
 				msg += tch_msg
 
 			self.__view.showResult(msg)
