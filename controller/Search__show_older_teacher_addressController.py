@@ -1,6 +1,4 @@
-
 from view.Search__show_older_teacher_address import *
-
 
 class Search__show_older_teacher_addressController ():
 	def __init__ (self, repo, repoService):
@@ -29,16 +27,16 @@ class Search__show_older_teacher_addressController ():
 					msg = f"They are the olders teachers in the repository\n"
 			else:
 				raise Exception("Please insert a teacher before make this Operation")
-			
+
 			for i in range(len(found)):
 				tch = found[i]
-				tch_msg = f"   - {tch.age} years old : {tch.ID}, {tch.fullname.name} {tch.fullname.last_name}:\n                  address: {tch.address.address_street}, {tch.address.address_number}, {tch.address.address_municipality} - {tch.address.address_province}\n" 
+				tch_msg = f"   - {tch.age} years old : {tch.ID}, {tch.fullname.name} {tch.fullname.last_name}:\n                  address: {tch.address.address_street}, {tch.address.address_number}, {tch.address.address_municipality} - {tch.address.address_province}\n"
 				msg += tch_msg
-	
+
 			self.__view.showResult(msg)
 		except Exception as e:
 			self.__view.showError(e.args[0])
-# ------------------------------------------------------   
+# ------------------------------------------------------
 #			Load Options
 # ------------------------------------------------------
 	def assigOption1 (self):
@@ -50,41 +48,42 @@ class Search__show_older_teacher_addressController ():
 			self.__view.box_municipaly.addItem(str(municipality))
 
 
-# ------------------------------------------------------   
+# ------------------------------------------------------
 #			Load Options
 # ------------------------------------------------------
 	def assigOption1 (self):
 		if self.__view.box_province.count() != 0:
 			self.__view.box_province.clear()
 
-		for i in range(len(self.__repository.Teachers)):
-			province_tch = self.__repository.Teachers[i].address.address_province
+		for i in self.__repository.getTeacher(att="address"):
+			province_tch = self.__repository.getAddress(addid=str(i[0]), att="province")[0][0]
 			province_box = []
 			for j in range(self.__view.box_province.count() + 1):
 				province_box.append(self.__view.box_province.itemText(j))
 
 			if province_tch not in province_box:
-				self.__view.box_province.addItem(str(province_tch))	
+				self.__view.box_province.addItem(str(province_tch))
 
 
 	def assigOption2 (self, opt):
 		if self.__view.box_municipality.count() != 0:
 			self.__view.box_municipality.clear()
 
-		for i in range(len(self.__repository.Teachers)):
-			province = self.__repository.Teachers[i].address.address_province
-			
+		for i in self.__repository.getTeacher(att="address"):
+			for j in self.__repository.getAddress(addid=str(i[0]), att="province, municipality"):
+				province = j[0]
+
 			if province == opt:
-				municipality_tch = self.__repository.Teachers[i].address.address_municipality
+				municipality_tch = j[1]
 				municipality_box = []
-				
+
 				for j in range(self.__view.box_municipality.count() + 1):
 					municipality_box.append(self.__view.box_municipality.itemText(j))
 
 				if municipality_tch not in municipality_box:
 					self.__view.box_municipality.addItem(str(municipality_tch))
 # ------------------------------------------------------
-#			VALIDATIONS 
+#			VALIDATIONS
 # ------------------------------------------------------
 	def __validateOpen (self):
 		if self.__view.box_province.count() == 0:

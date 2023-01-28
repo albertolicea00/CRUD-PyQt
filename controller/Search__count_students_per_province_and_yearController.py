@@ -51,9 +51,10 @@ class Search__count_students_per_province_and_yearController ():
 		if self.__view.box_year.count() != 0:
 			self.__view.box_year.clear()
 
-		for i in range(len(self.__repository.Students)):
-			year_std = str(self.__repository.Students[i].year_of_carrer)
+		for i in self.__repository.getStudent(att="yearofcarrer"):
+			year_std = str(i[0])
 			year_box = []
+
 			for j in range(self.__view.box_year.count() + 1):
 				year_box.append(self.__view.box_year.itemText(j))
 
@@ -64,11 +65,11 @@ class Search__count_students_per_province_and_yearController ():
 		if self.__view.box_province.count() != 0:
 			self.__view.box_province.clear()
 
-		for i in range(len(self.__repository.Students)):
-			year = str (self.__repository.Students[i].year_of_carrer)
+		for i in self.__repository.getStudent(att="yearofcarrer, address"):
+			year = str(i[0])
 
 			if year == opt:
-				province_std = self.__repository.Students[i].address.address_province
+				province_std = self.__repository.getAddress(addid=str(i[1]), att="province")[0][0]
 				province_box = []
 
 				for j in range(self.__view.box_province.count() + 1):
