@@ -13,28 +13,6 @@ class Repository ():
         None
         """
 
-        self.__possible_students = [] 	# esto se borrara mas adelante
-        self.__possible_teachers = [] 	# esto se borrara mas adelante
-        self.__possible_places = [] 	# esto se borrara mas adelante
-
-    # -------------------------------
-    #		INTERNALS OPERATION
-    # -------------------------------
-    def indexStudent(self , ID):
-        for i in range(len(self.Students)):
-            if self.Students[i].ID == ID:
-                return i
-    def indexTeacher(self , ID):
-        for i in range(len(self.Teachers)):
-            if self.Teachers[i].ID == ID:
-                return i
-
-    def indexPlace(self , place_name):
-        for i in range(len(self.Places)):
-            if self.Places[i].place_name == place_name:
-                return i
-
-
     @staticmethod
     def maxIndexAddress():
         #  retorna el id maximo en la tabla de direcciones
@@ -49,14 +27,10 @@ class Repository ():
         except psycopg2.Error as e:
             raise Exception(f"Error in database: {e}")
 
-
-
-# *****************************************************************
-#							CRUD
-# *****************************************************************
     # ----------------------------------------------------------
-    #			 SHOW			 SHOW			 SHOW
+    #		    QUERY			QUERY			QUERY
     # ----------------------------------------------------------
+
     def getPlace(self, plcid="ID", plcname="name", att="*"):
         # retorna las columnas(att) de un lugar de ubicacion segun el nombre pasado por parametro
         # att:str => 'name, inuniversity'
@@ -124,7 +98,9 @@ class Repository ():
         except psycopg2.Error as e:
             raise Exception(f"Error in database: {e}")
 
-
+    # ----------------------------------------------------------
+    #			 SHOW			 SHOW			 SHOW
+    # ----------------------------------------------------------
 
     @property
     def Students (self):
@@ -153,6 +129,7 @@ class Repository ():
         [object_student1, object_teacher2, object_teacher3 ...]
         """
         return self.__possible_teachers
+
     @property
     def Places (self):
         """

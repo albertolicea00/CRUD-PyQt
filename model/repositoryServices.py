@@ -164,6 +164,6 @@ class RepositoryService ():
 
 		# ordena y retorna un modelo de indices del array de edades
 		inds = np.argsort(a=ages, kind='quicksort')	 	# parametro-kind:{'quicksort'', 'mergesort', 'heapsort', 'stable', ...}
-		sorted_tch = teachers[inds]	 # segun el orden de edades se ordena el array de profesores
+		sorted_tch = teachers[inds]	 					# segun el orden de edades se ordena el array de profesores
 
 		return sorted_tch
