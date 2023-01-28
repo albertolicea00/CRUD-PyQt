@@ -16,8 +16,8 @@ class MainWindow (QMainWindow):
 #			BUTTONS ACTIONS
 # ------------------------------------------------------
 		self.actmenu_open.triggered.connect(self.__do.File__open)
-		self.actmenu_save.triggered.connect(self.__do.File__save)
-		self.actmenu_save_as.triggered.connect(self.__do.File__save_as)
+		self.actmenu_save_std.triggered.connect(self.__do.File__save_std)
+		self.actmenu_save_tch.triggered.connect(self.__do.File__save_tch)
 
 		self.actmenu_exit.triggered.connect(self.close)
 

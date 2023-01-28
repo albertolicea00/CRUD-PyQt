@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMessageBox
+from PyQt5.QtWidgets import QApplication, QMessageBox, QFileDialog
 from view.MainWindow import MainWindow
 
 from controller.CRUD__PlacetolocationControler import *
@@ -16,6 +16,7 @@ from controller.Search__count_students_per_province_and_yearController	import *
 
 from model.repository import Repository
 from model.repositoryServices import RepositoryService
+from model.extraServices import extraService
 
 
 
@@ -179,8 +180,16 @@ class mainControler ():
 	def File__open(self):
 		QMessageBox.critical(self.__mainview, "Comming soon..." , "In progress, please wait for the next UniDef version")
 
-	def File__save(self):
-		QMessageBox.critical(self.__mainview, "Comming soon..." , "In progress, please wait for the next UniDef version")
+	def File__save_std(self):
+		path = QFileDialog.getSaveFileName(self.__mainview, 'Export Students', 'studentsTable', filter='Text files (*.txt);;Comma Separated Values (*.csv)' )
 
-	def File__save_as(self):
-		QMessageBox.critical(self.__mainview, "Comming soon..." , "In progress, please wait for the next UniDef version")
+		if path[0] != '':
+			extraService.save(path[0], 'STUDENT')
+			QMessageBox.about(self.__mainview, "Export successful", f"Student table save successful into {path[0]}")
+
+	def File__save_tch(self):
+		path = QFileDialog.getSaveFileName(self.__mainview, 'Export Teachers', 'teachersTable', filter='Text files (*.txt);;Comma Separated Values (*.csv)')
+
+		if path[0] != '':
+			extraService.save(path[0], 'TEACHER')
+			QMessageBox.about(self.__mainview, "Export successful", f"Teachers table save successful into {path[0]}")

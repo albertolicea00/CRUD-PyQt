@@ -280,8 +280,8 @@
     </property>
     <addaction name="actmenu_open"/>
     <addaction name="separator"/>
-    <addaction name="actmenu_save"/>
-    <addaction name="actmenu_save_as"/>
+    <addaction name="actmenu_save_std"/>
+    <addaction name="actmenu_save_tch"/>
     <addaction name="separator"/>
     <addaction name="actmenu_exit"/>
     <addaction name="separator"/>
@@ -431,12 +431,12 @@
     <string>TeacherTable</string>
    </property>
   </action>
-  <action name="actmenu_save">
+  <action name="actmenu_save_std">
    <property name="text">
-    <string>Save</string>
+    <string>Save Students</string>
    </property>
    <property name="statusTip">
-    <string>Coming soon...</string>
+    <string>Export Students</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
@@ -447,12 +447,15 @@
     <string>Open</string>
    </property>
   </action>
-  <action name="actmenu_save_as">
+  <action name="actmenu_save_tch">
    <property name="text">
-    <string>Save as..</string>
+    <string>Save Teachers</string>
    </property>
    <property name="statusTip">
-    <string>Coming soon...</string>
+    <string>Export Teachers</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+T</string>
    </property>
   </action>
   <action name="actmenu_open">

@@ -26,6 +26,18 @@ class Repository ():
         except psycopg2.Error as e:
             raise Exception(f"Error in database: {e}")
 
+    @staticmethod
+    def getAll(table):
+        try:
+            with conection.cursor() as cursor:
+
+                query = "SELECT * FROM {}, ADDRESS WHERE {}.address = ADDRESS.id".format(table, table)
+
+                cursor.execute(query)
+                return cursor.fetchall()
+
+        except psycopg2.Error as e:
+            raise Exception(f"Error in database: {e}")
     # ----------------------------------------------------------
     #		    QUERY			QUERY			QUERY
     # ----------------------------------------------------------
