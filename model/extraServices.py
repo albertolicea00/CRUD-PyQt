@@ -19,6 +19,9 @@ class extraService ():
     def openWeb(url):
         webbrowser.open(url, new=0, autoraise=True)
 
+    @staticmethod
+    def checkUpdate(url):
+        extraService.openWeb(url)
 
     @staticmethod
     def save(path, table):

@@ -11,7 +11,5 @@ class Help__contactControler ():
 		self.__view.show()
 		self.__view.exec()
 
-
 	def connect_web(self, url):
-		print(url)
 		extraService.openWeb(url)
