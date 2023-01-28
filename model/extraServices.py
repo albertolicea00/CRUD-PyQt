@@ -1,6 +1,6 @@
 from model.repository import *
+import webbrowser
 import requests
-
 
 import psycopg2
 from database.conection import conection
@@ -13,13 +13,12 @@ class extraService ():
         >>> repo = extraServices()
         None
         """
-        self.facebookAL = 'http://'
-        self.instagramAL = 'http://'
-        self.whastappAL = 'http://'
-        self.telegramAL = 'http://'
-        self.linkedlnAL = 'http://'
 
-        self.github = 'http://'
+
+    @staticmethod
+    def openWeb(url):
+        webbrowser.open(url, new=0, autoraise=True)
+
 
     @staticmethod
     def save(path, table):
@@ -33,6 +32,7 @@ class extraService ():
 
                     file.write(reg)
                 file.write("\r")
+
 
 
 

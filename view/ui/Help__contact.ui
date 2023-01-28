@@ -116,7 +116,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="btn_instagram_2">
+     <widget class="QPushButton" name="btn_githubRafa">
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
       </property>
@@ -126,12 +126,12 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="btn_whatsapp_2">
+     <widget class="QPushButton" name="btn_telegramRafa">
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
       </property>
       <property name="text">
-       <string>RRSS</string>
+       <string>telegram</string>
       </property>
      </widget>
     </item>
@@ -148,7 +148,7 @@
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="QPushButton" name="btn_instagram">
+     <widget class="QPushButton" name="btn_instagramAl">
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
       </property>
@@ -158,7 +158,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="btn_linkedln">
+     <widget class="QPushButton" name="btn_linkedlnAl">
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
       </property>
@@ -168,7 +168,7 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="btn_github">
+     <widget class="QPushButton" name="btn_githubAl">
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
       </property>
@@ -178,12 +178,12 @@
      </widget>
     </item>
     <item>
-     <widget class="QPushButton" name="btn_whatsapp">
+     <widget class="QPushButton" name="btn_telegramAl">
       <property name="cursor">
        <cursorShape>ArrowCursor</cursorShape>
       </property>
       <property name="text">
-       <string>whatsapp</string>
+       <string>telegram</string>
       </property>
      </widget>
     </item>
