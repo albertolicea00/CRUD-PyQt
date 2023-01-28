@@ -1,5 +1,3 @@
-from model.studentClass import Student 
-from model.teacherClass import Teacher
 import psycopg2
 from database.conection import conection
 
@@ -12,6 +10,7 @@ class Repository ():
         >>> repo = Repository()
         None
         """
+        pass
 
     @staticmethod
     def maxIndexAddress():
