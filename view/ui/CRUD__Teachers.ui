@@ -9,20 +9,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>350</height>
+    <width>650</width>
+    <height>400</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
-    <height>350</height>
+    <width>650</width>
+    <height>400</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
-    <height>350</height>
+    <width>650</width>
+    <height>400</height>
    </size>
   </property>
   <property name="cursor">
@@ -34,10 +34,10 @@
   <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>0</y>
-     <width>291</width>
-     <height>105</height>
+     <x>330</x>
+     <y>10</y>
+     <width>311</width>
+     <height>131</height>
     </rect>
    </property>
    <property name="title">
@@ -101,16 +101,6 @@
       </item>
      </widget>
     </item>
-    <item row="2" column="0">
-     <widget class="QLabel" name="lb_scientifi_category">
-      <property name="text">
-       <string>Scientific Category:</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-      </property>
-     </widget>
-    </item>
     <item row="2" column="1">
      <widget class="QComboBox" name="box_scientific_category">
       <property name="statusTip">
@@ -133,15 +123,25 @@
       </item>
      </widget>
     </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="lb_scientifi_category">
+      <property name="text">
+       <string>Scientific Category:</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
    </layout>
   </widget>
   <widget class="QGroupBox" name="BOX_place_descrption">
    <property name="geometry">
     <rect>
      <x>0</x>
-     <y>150</y>
-     <width>291</width>
-     <height>201</height>
+     <y>180</y>
+     <width>321</width>
+     <height>211</height>
     </rect>
    </property>
    <property name="cursor">
@@ -258,8 +258,8 @@
        <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:7.8pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
       </property>
      </widget>
     </item>
@@ -268,10 +268,10 @@ p, li { white-space: pre-wrap; }
   <widget class="QGroupBox" name="BOX_address">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>120</y>
-     <width>291</width>
-     <height>131</height>
+     <x>330</x>
+     <y>150</y>
+     <width>311</width>
+     <height>161</height>
     </rect>
    </property>
    <property name="title">
@@ -359,8 +359,8 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>291</width>
-     <height>151</height>
+     <width>321</width>
+     <height>181</height>
     </rect>
    </property>
    <property name="font">
@@ -530,9 +530,9 @@ p, li { white-space: pre-wrap; }
   <widget class="QWidget" name="btns" native="true">
    <property name="geometry">
     <rect>
-     <x>300</x>
-     <y>260</y>
-     <width>291</width>
+     <x>330</x>
+     <y>320</y>
+     <width>311</width>
      <height>71</height>
     </rect>
    </property>

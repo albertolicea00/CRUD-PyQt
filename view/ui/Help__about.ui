@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>150</height>
+    <width>400</width>
+    <height>180</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>350</width>
-    <height>150</height>
+    <width>400</width>
+    <height>180</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>350</width>
-    <height>150</height>
+    <width>400</width>
+    <height>180</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -29,9 +29,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>80</y>
+     <y>51</y>
      <width>121</width>
-     <height>52</height>
+     <height>81</height>
     </rect>
    </property>
    <property name="text">
@@ -45,9 +45,9 @@ Copyright (C) 2022 </string>
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>20</y>
-     <width>321</width>
-     <height>31</height>
+     <y>10</y>
+     <width>361</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
@@ -65,10 +65,10 @@ Copyright (C) 2022 </string>
   <widget class="QLabel" name="lb_contact">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>100</y>
-     <width>141</width>
-     <height>51</height>
+     <x>20</x>
+     <y>140</y>
+     <width>281</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
@@ -80,7 +80,7 @@ Copyright (C) 2022 </string>
     <cursorShape>WhatsThisCursor</cursorShape>
    </property>
    <property name="text">
-    <string>Developed by Alberto Licea</string>
+    <string>Developed by:  Alberto Licea &amp; Rafael Cárdenas</string>
    </property>
   </widget>
  </widget>

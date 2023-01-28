@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
-    <height>440</height>
+    <width>800</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
-    <height>440</height>
+    <width>800</width>
+    <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
-    <height>440</height>
+    <width>800</width>
+    <height>500</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -34,20 +34,20 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>600</width>
-      <height>400</height>
+      <width>800</width>
+      <height>600</height>
      </rect>
     </property>
     <property name="minimumSize">
      <size>
-      <width>600</width>
-      <height>400</height>
+      <width>800</width>
+      <height>600</height>
      </size>
     </property>
     <property name="maximumSize">
      <size>
-      <width>600</width>
-      <height>400</height>
+      <width>800</width>
+      <height>500</height>
      </size>
     </property>
     <property name="currentIndex">
@@ -65,8 +65,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>594</width>
-        <height>375</height>
+        <width>801</width>
+        <height>431</height>
        </rect>
       </property>
       <property name="accessibleName">
@@ -172,8 +172,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>594</width>
-        <height>375</height>
+        <width>801</width>
+        <height>431</height>
        </rect>
       </property>
       <column>
@@ -270,8 +270,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
-     <height>21</height>
+     <width>800</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_file">

@@ -30,7 +30,7 @@
     <rect>
      <x>100</x>
      <y>90</y>
-     <width>191</width>
+     <width>195</width>
      <height>51</height>
     </rect>
    </property>
@@ -61,9 +61,9 @@
    <property name="geometry">
     <rect>
      <x>20</x>
-     <y>20</y>
-     <width>157</width>
-     <height>51</height>
+     <y>12</y>
+     <width>241</width>
+     <height>61</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout_2">
