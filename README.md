@@ -25,5 +25,6 @@ Las herramientas y tecnologías utilizadas para el desarrollo del proyecto fuero
   - PyQT5
   - QTDesigner
   - Python 3.9
-  - Sublime Text
-  - módulos extras de python para optimización del mismo  (unittest , doctest, datatime, re …)
+  - PostgreSQL
+  - modulos para conecciones a la BBDD (dotenv, psycopg2, sys, os, ..)
+  - módulos extras de python para optimización y funcionalidades del mismo  (unittest , doctest, datatime, re, numpy, webbrowser, …)
